@@ -9,25 +9,61 @@ Docker configuration for GitHub Actions self-hosted runner
 
 ## Quick Start
 
-1. Copy the example environment file:
+### Local Development with Docker Compose
+
+1. Create a `.env` file with your values:
    ```bash
-   cp .env.example .env
+   GITHUB_TOKEN=your_github_token
+   GITHUB_REPOSITORY=owner/repo
+   RUNNER_NAME=my-runner  # Optional
+   RUNNER_LABELS=docker,linux  # Optional
    ```
 
-2. Edit `.env` and set your values:
-   - `GITHUB_TOKEN`: Your GitHub Personal Access Token
-   - `GITHUB_REPOSITORY`: Your repository in `owner/repo` format
-   - `RUNNER_NAME`: (Optional) Custom name for your runner
-   - `RUNNER_LABELS`: (Optional) Custom labels for your runner
-
-3. Build and run with Docker Compose:
+2. Build and run:
    ```bash
    docker-compose up -d
    ```
 
-4. Check the logs:
+3. Check the logs:
    ```bash
    docker-compose logs -f
+   ```
+
+### Azure Container Instances Deployment
+
+1. Build and push the image to a container registry:
+   ```bash
+   docker build -t your-registry.azurecr.io/github-runner:latest .
+   docker push your-registry.azurecr.io/github-runner:latest
+   ```
+
+2. Deploy to Azure Container Instances with environment variables:
+   ```bash
+   az container create \
+     --resource-group your-rg \
+     --name github-runner \
+     --image your-registry.azurecr.io/github-runner:latest \
+     --environment-variables \
+       GITHUB_TOKEN=your_token \
+       GITHUB_REPOSITORY=owner/repo \
+       RUNNER_NAME=azure-runner \
+       RUNNER_LABELS=azure,docker \
+     --cpu 1 --memory 2
+   ```
+
+   Or using secure environment variables:
+   ```bash
+   az container create \
+     --resource-group your-rg \
+     --name github-runner \
+     --image your-registry.azurecr.io/github-runner:latest \
+     --secure-environment-variables \
+       GITHUB_TOKEN=your_token \
+     --environment-variables \
+       GITHUB_REPOSITORY=owner/repo \
+       RUNNER_NAME=azure-runner \
+       RUNNER_LABELS=azure,docker \
+     --cpu 1 --memory 2
    ```
 
 ## Manual Docker Build
