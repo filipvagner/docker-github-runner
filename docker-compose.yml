@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  github-runner:
+    build: .
+    container_name: github-runner
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_REPOSITORY=${GITHUB_REPOSITORY}
+      - RUNNER_NAME=${RUNNER_NAME:-docker-runner}
+      - RUNNER_LABELS=${RUNNER_LABELS:-docker}
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Optional: if you need Docker-in-Docker
