@@ -6,10 +6,10 @@ if [ -z "$GITHUB_TOKEN" ]; then
     exit 1
 fi
 
-if [ -z "$GITHUB_REPOSITORY" ]; then
-    echo "Error: GITHUB_REPOSITORY environment variable is required (format: owner/repo)"
-    exit 1
-fi
+# if [ -z "$GITHUB_REPOSITORY" ]; then
+#     echo "Error: GITHUB_REPOSITORY environment variable is required (format: owner/repo)"
+#     exit 1
+# fi
 
 # Set defaults
 RUNNER_NAME=${RUNNER_NAME:-"docker-runner-$(hostname)"}
