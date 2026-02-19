@@ -23,11 +23,12 @@ echo "Requesting registration token..."
 #     "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runners/registration-token" | jq -r .token)
 
 REGISTRATION_TOKEN=$(
-    curl -sX \
+    curl -s -L \
     -X POST \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer ${GITHUB_TOKEN}" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
+    --post301 --post302 \
     https://api.github.com/orgs/${GITHUB_ORGANIZATION}/actions/runners/registration-token | jq -r .token
 )
 
