@@ -12,8 +12,8 @@ fi
 # fi
 
 # Set defaults
-RUNNER_NAME=${RUNNER_NAME:-"docker-runner-$(hostname)"}
-RUNNER_LABELS=${RUNNER_LABELS:-"docker"}
+RUNNER_NAME=${RUNNER_NAME}
+RUNNER_LABELS=${RUNNER_LABELS:-"atn"}
 
 # Get registration token
 echo "Requesting registration token..."
