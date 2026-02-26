@@ -12,7 +12,8 @@ fi
 # fi
 
 # Set defaults
-RUNNER_NAME=${RUNNER_NAME}
+#RUNNER_NAME=${RUNNER_NAME}
+RUNNER_NAME=$(hostname)
 RUNNER_LABELS=${RUNNER_LABELS:-"atn"}
 
 # Get registration token
